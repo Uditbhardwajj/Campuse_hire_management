@@ -1,0 +1,7 @@
+target/
+*.class
+cloudflared.exe
+*.txt
+.idea/
+*.iml
+.vscode/

@@ -1,0 +1,6 @@
+target/
+.git/
+cloudflared.exe
+*.bat
+*.ps1
+*.txt
