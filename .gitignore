@@ -5,3 +5,5 @@ cloudflared.exe
 .idea/
 *.iml
 .vscode/
+
+push-to-github.bat
