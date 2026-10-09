@@ -42,14 +42,33 @@ public class DBConnection {
                 System.out.println("[DBConnection] db.properties not found, using default credentials: " + e.getMessage());
             }
 
-            // 2. Override with Cloud Environment Variables if present (Render/Railway/AWS)
+            // 2. Override with Cloud Environment Variables if present (Render/Railway/AWS/Clever Cloud/TiDB)
             String envUrl = System.getenv("DB_URL");
             if (envUrl == null) envUrl = System.getenv("DATABASE_URL");
             String envUser = System.getenv("DB_USER");
             String envPass = System.getenv("DB_PASSWORD");
 
             if (envUrl != null && !envUrl.trim().isEmpty()) {
-                url = envUrl.trim();
+                envUrl = envUrl.trim();
+                if (envUrl.startsWith("mysql://")) {
+                    try {
+                        java.net.URI uri = new java.net.URI(envUrl);
+                        String userInfo = uri.getUserInfo();
+                        if (userInfo != null) {
+                            String[] parts = userInfo.split(":", 2);
+                            if (envUser == null || envUser.isEmpty()) envUser = parts[0];
+                            if ((envPass == null || envPass.isEmpty()) && parts.length > 1) envPass = parts[1];
+                        }
+                        String host = uri.getHost();
+                        int port = uri.getPort() != -1 ? uri.getPort() : 3306;
+                        String path = uri.getPath();
+                        String query = uri.getQuery();
+                        envUrl = "jdbc:mysql://" + host + ":" + port + path + (query != null ? "?" + query : "");
+                    } catch (Exception e) {
+                        System.err.println("[DBConnection] Parsing mysql:// URI error: " + e.getMessage());
+                    }
+                }
+                url = envUrl;
             }
             if (envUser != null && !envUser.trim().isEmpty()) {
                 user = envUser.trim();
@@ -57,6 +76,7 @@ public class DBConnection {
             if (envPass != null) {
                 password = envPass.trim();
             }
+            System.out.println("[DBConnection] Configured DB URL: " + url + " (User: " + user + ")");
         } catch (ClassNotFoundException e) {
             System.err.println("[DBConnection] MySQL JDBC Driver not found! Ensure mysql-connector-j.jar is in WEB-INF/lib.");
             e.printStackTrace();
