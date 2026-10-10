@@ -1,228 +1,191 @@
 # CampusHire - College Placement and Internship Management System
 
-A complete, professional web application developed strictly using **Core Java, Servlets, JDBC, JSP, MySQL, and Apache Tomcat**. Designed specifically to meet and exceed 3rd-year B.Tech computer science curriculum standards while remaining 100% understandable and explainable in a project demonstration and viva.
+CampusHire is a Java-based web application designed to bring students, recruiters, and a college's Training and Placement Office (TPO) together in one portal. It supports job and internship postings, student applications, and role-based access for students, companies, and administrators.
 
----
+## Features
 
-## 🎯 1. What the Project Does
+### Student
+- Register and manage an academic profile.
+- Browse job and internship opportunities.
+- Review eligibility requirements such as CGPA and department.
+- Apply for opportunities and check application status.
 
-**CampusHire** is an automated campus recruitment portal for colleges and universities. It replaces traditional manual placement processes (spreadsheets, paper resumes, chaotic notice boards) with a centralized, role-based platform that connects:
-1. **Students**: Create profiles, check eligibility against company criteria (CGPA cutoff & department), browse job and internship opportunities, apply with a single click, and track application stages in real-time.
-2. **Corporate Recruiters / Companies**: Register organization details, publish recruitment drives (jobs & internships), review applicant resumes and academics, and update hiring stages (`PENDING`, `SHORTLISTED`, `INTERVIEW_SCHEDULED`, `ACCEPTED`, `REJECTED`).
-3. **Training & Placement Office (TPO / Admin)**: Supervise the entire campus hiring lifecycle, verify and approve corporate registrations, moderate postings, audit applications, and generate department-wise placement reports.
+### Company / Recruiter
+- Register and maintain company details.
+- Post jobs and internships.
+- Review applicants and update application statuses.
 
----
+### TPO / Administrator
+- Access administrative pages for managing students, companies, postings, and applications.
+- Review company registrations and recruitment activity.
+- View placement-related reports, where supported by the application.
 
-## 🔄 2. How the Complete System Works (Architecture)
+> The available features depend on the current implementation. Check the application itself before describing any feature as complete.
 
-The system follows a classic, clean **Model-View-Controller (MVC)** architectural design:
+## Technologies Used
 
+| Technology | Purpose |
+|---|---|
+| Java | Application logic |
+| Servlets and JSP | Request handling and dynamic web pages |
+| JDBC | Connecting Java code to the database |
+| MySQL | Relational database |
+| HTML, CSS and JavaScript | User interface |
+| Apache Tomcat | Servlet container and web server |
+| Maven | Project and dependency configuration |
+| Git and GitHub | Version control and source hosting |
+
+## System Architecture
+
+The application is organized around an MVC-style structure, with Servlets handling requests, JSP pages rendering views, DAO classes managing database access, and MySQL storing application data.
+
+```text
+Browser (HTML, CSS, JavaScript)
+              |
+          HTTP request
+              v
+      Servlets / Filters
+       (controllers)
+              |
+       Model and DAO classes
+              |
+            JDBC
+              |
+          MySQL DB
 ```
-+-------------------------------------------------------------+
-|                     Client Browser                          |
-|         (HTML5, CSS3, JavaScript, Responsive UI)           |
-+-------------------------------------------------------------+
-                              |
-                     HTTP GET / POST
-                              v
-+-------------------------------------------------------------+
-|                 Servlet Container (Tomcat 10)               |
-|                                                             |
-|   1. AuthFilter (Intercepts protected role URLs)            |
-|   2. Controller Servlets (Login, Register, Student, etc.)   |
-|   3. HttpSession Management (User session & roles)          |
-+-------------------------------------------------------------+
-                              |
-               Invokes Business & Data Access Logic
-                              v
-+-------------------------------------------------------------+
-|              Data Access Layer (DAO Pattern)                |
-|    (UserDAO, StudentDAO, CompanyDAO, JobDAO, AppDAO)        |
-+-------------------------------------------------------------+
-                              |
-                 Standard JDBC API Calls
-               (Connection, PreparedStatement)
-                              v
-+-------------------------------------------------------------+
-|               MySQL Relational Database                     |
-|                   (campus_hire_db)                          |
-+-------------------------------------------------------------+
-```
 
----
+- **View:** JSP pages and frontend assets.
+- **Controller:** Servlets process user requests.
+- **Data access:** DAO classes perform database operations using JDBC.
+- **Authentication:** Sessions and `AuthFilter` are used for login state and role-based access.
 
-## 💻 3. Required Software
+## Project Structure
 
-- **Java Development Kit (JDK)**: JDK 17, 21, or 25.
-- **Web Server**: Apache Tomcat 10.1.x (Jakarta EE 10 compliant).
-- **Database**: MySQL Server 8.0+.
-- **Database Driver**: MySQL Connector/J (`mysql-connector-j-8.x.x.jar`).
-- **Web Browser**: Chrome, Edge, Firefox, or Safari.
-
----
-
-## 📁 4. Project Folder Structure
-
-```
+```text
 campushire/
-│
-├── pom.xml                                   # Standard Maven configuration
-├── build.bat                                 # Windows 1-click build and deploy
-├── build.ps1                                 # PowerShell build automation script
-├── start-tomcat.bat                          # Helper to launch Apache Tomcat
-├── stop-tomcat.bat                           # Helper to stop Apache Tomcat
-│
+├── pom.xml
+├── build.bat
+├── build.ps1
+├── start-tomcat.bat
+├── stop-tomcat.bat
 ├── database/
-│   └── placement_system.sql                  # Database schema & sample dataset
-│
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── com/placement/
-│       │       ├── model/                    # Java POJO Model Classes
-│       │       │   ├── User.java
-│       │       │   ├── Student.java
-│       │       │   ├── Company.java
-│       │       │   ├── Job.java
-│       │       │   ├── Internship.java
-│       │       │   ├── Application.java
-│       │       │   └── DashboardStats.java
-│       │       ├── dao/                      # Data Access Objects (JDBC)
-│       │       │   ├── UserDAO.java
-│       │       │   ├── StudentDAO.java
-│       │       │   ├── CompanyDAO.java
-│       │       │   ├── JobDAO.java
-│       │       │   ├── InternshipDAO.java
-│       │       │   └── ApplicationDAO.java
-│       │       ├── util/                     # Connection & Security Utilities
-│       │       │   ├── DBConnection.java
-│       │       │   └── PasswordUtil.java
-│       │       ├── filter/                   # Authentication & RBAC Filter
-│       │       │   └── AuthFilter.java
-│       │       └── servlet/                  # HTTP Request Controllers
-│       │           ├── LoginServlet.java
-│       │           ├── LogoutServlet.java
-│       │           ├── RegisterServlet.java
-│       │           ├── StudentServlet.java
-│       │           ├── CompanyServlet.java
-│       │           └── AdminServlet.java
-│       │
-│       ├── resources/
-│       │   └── db.properties                 # MySQL configuration file
-│       │
-│       └── webapp/
-│           ├── WEB-INF/
-│           │   ├── web.xml                   # Web application deployment descriptor
-│           │   ├── lib/                      # mysql-connector-j.jar
-│           │   └── views/                    # Protected JSP Pages
-│           │       ├── student/
-│           │       │   ├── dashboard.jsp
-│           │       │   ├── profile.jsp
-│           │       │   ├── jobs.jsp
-│           │       │   ├── internships.jsp
-│           │       │   ├── view-job.jsp
-│           │       │   ├── view-internship.jsp
-│           │       │   └── my-applications.jsp
-│           │       ├── company/
-│           │       │   ├── dashboard.jsp
-│           │       │   ├── profile.jsp
-│           │       │   ├── post-job.jsp
-│           │       │   ├── post-internship.jsp
-│           │       │   ├── manage-postings.jsp
-│           │       │   └── applicants.jsp
-│           │       └── admin/
-│           │           ├── dashboard.jsp
-│           │           ├── students.jsp
-│           │           ├── companies.jsp
-│           │           ├── postings.jsp
-│           │           ├── applications.jsp
-│           │           └── reports.jsp
-│           │
-│           ├── css/
-│           │   └── style.css                 # Clean, responsive CSS styling
-│           ├── js/
-│           │   └── main.js                   # UI script (tabs, modal dialogs)
-│           ├── includes/                     # Reusable JSP header/footer components
-│           │   ├── header.jsp
-│           │   ├── navbar.jsp
-│           │   ├── alerts.jsp
-│           │   └── footer.jsp
-│           ├── index.jsp                     # Public Portal Landing Page
-│           ├── login.jsp                     # Multi-role Login Page
-│           ├── register.jsp                  # Role Selection Page
-│           ├── student-register.jsp          # Student Signup Form
-│           └── company-register.jsp          # Recruiter Signup Form
+│   └── placement_system.sql
+└── src/
+    └── main/
+        ├── java/com/placement/
+        │   ├── model/       # Application model classes
+        │   ├── dao/         # JDBC data-access classes
+        │   ├── util/        # Database and utility classes
+        │   ├── filter/      # Authentication/role filter
+        │   └── servlet/     # Request controllers
+        ├── resources/
+        │   └── db.properties
+        └── webapp/
+            ├── WEB-INF/
+            │   └── views/   # Role-specific JSP pages
+            ├── css/
+            ├── js/
+            ├── includes/
+            ├── index.jsp
+            ├── login.jsp
+            └── register.jsp
 ```
 
----
+Some files and directories may change as the project develops.
 
-## 🗄️ 5. Database Schema & Relationships
+## Database Overview
 
-The database `campus_hire_db` contains 6 relational tables with foreign keys and cascade rules:
+The database is named `campus_hire_db`. The current project documentation identifies these main tables:
 
-1. **`users`**: Base credentials for all roles (`id`, `username`, `email`, `password_hash`, `role` [ADMIN/STUDENT/COMPANY], `status`, `created_at`).
-2. **`students`**: Academic profile (`id`, `user_id` -> `users.id`, `roll_no`, `first_name`, `last_name`, `department`, `cgpa`, `passing_year`, `skills`, `resume_url`, `phone`, `address`).
-3. **`companies`**: Recruiter profile (`id`, `user_id` -> `users.id`, `company_name`, `industry`, `website`, `contact_person`, `phone`, `address`, `approval_status` [PENDING/APPROVED/REJECTED]).
-4. **`jobs`**: Full-time postings (`id`, `company_id` -> `companies.id`, `title`, `role_category`, `job_type`, `description`, `requirements`, `min_cgpa`, `allowed_branches`, `package_lpa`, `location`, `openings`, `deadline`, `status`).
-5. **`internships`**: Internship postings (`id`, `company_id` -> `companies.id`, `title`, `role_category`, `stipend_per_month`, `duration_months`, `description`, `requirements`, `min_cgpa`, `allowed_branches`, `location`, `openings`, `deadline`, `status`).
-6. **`applications`**: Application records (`id`, `student_id` -> `students.id`, `posting_type` [JOB/INTERNSHIP], `posting_id`, `applied_date`, `status` [PENDING/SHORTLISTED/INTERVIEW_SCHEDULED/ACCEPTED/REJECTED], `remarks`, `updated_at`).
-   - Includes unique constraint: `UNIQUE (student_id, posting_type, posting_id)` preventing duplicate applications.
+- **`users`** — account details, role, status, and password hash.
+- **`students`** — student academic and contact information.
+- **`companies`** — recruiter and company information.
+- **`jobs`** — job postings and eligibility details.
+- **`internships`** — internship postings and eligibility details.
+- **`applications`** — student applications and their statuses.
 
----
+The schema and sample data are provided in `database/placement_system.sql`. Review that SQL file for the exact columns, constraints, and relationships used by the current version.
 
-## 🔐 6. Authentication & Password Security
+## Authentication and Security Notes
 
-- **No Frameworks**: Uses purely `java.security.MessageDigest` and `jakarta.servlet.http.HttpSession`.
-- **SHA-256 Hashing**: Passwords entered by users are transformed into 64-character hexadecimal SHA-256 hashes via `PasswordUtil.hashPassword()`. Plaintext passwords are never stored in the database.
-- **Role-Based Access Control (`AuthFilter`)**:
-  - Intercepts all requests.
-  - Ensures unauthenticated visitors cannot access `/student/*`, `/company/*`, or `/admin/*`.
-  - Verifies that logged-in users only access their assigned role's area (e.g. a Student cannot access `/admin/*` or `/company/*`).
-- **Session Attributes**:
-  - `user`: Authenticated User object.
-  - `role`: Role string (`STUDENT`, `COMPANY`, `ADMIN`).
-  - `fullName`: Display name for navbar.
-  - `studentId` or `companyId`: Entity ID for fast relational queries.
+- The application uses Servlet sessions to maintain login state.
+- `AuthFilter` is intended to restrict access to role-specific areas.
+- The current password utility is documented as using SHA-256 hashing.
 
----
+**Security note:** Plain SHA-256 is not recommended for production password storage because it is fast and does not provide password-specific salting by itself. For a production deployment, use a password-hashing algorithm designed for passwords, such as Argon2id, bcrypt, or PBKDF2. Do not publish real credentials, database passwords, or private configuration files.
 
+## Requirements
 
+- A compatible JDK (use the version supported by the project configuration).
+- Apache Tomcat 10.1.x, if the application uses the Jakarta Servlet APIs.
+- MySQL Server 8.0 or a compatible version.
+- MySQL Connector/J.
+- A modern web browser.
+- Maven, if using the Maven build configuration.
 
-## 🚀 8. How to Run the Project Locally
+## Run Locally
 
-### Step 1: Initialize Database
-Open MySQL Command Line or MySQL Workbench:
+### 1. Set up the database
+
+1. Start MySQL.
+2. Open MySQL Workbench or the MySQL command-line client.
+3. Execute the SQL script at `database/placement_system.sql`.
+
+For the MySQL command-line client, use the path to the script on **your own computer**. For example:
+
 ```sql
-SOURCE C:/Users/VIRENDRA SINGH/Downloads/campushire/database/placement_system.sql;
+SOURCE /path/to/campushire/database/placement_system.sql;
 ```
 
-### Step 2: Configure Database Credentials
-Open `src/main/resources/db.properties` and verify your MySQL credentials:
+Replace the example path with the actual location of your project. The path should not be copied literally.
+
+### 2. Configure database access
+
+Open `src/main/resources/db.properties` and set the connection details for your local MySQL installation. For example:
+
 ```properties
 db.url=jdbc:mysql://localhost:3306/campus_hire_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
 db.user=root
-db.password=YourMySQLPassword
+db.password=YOUR_LOCAL_MYSQL_PASSWORD
 ```
 
-### Step 3: Build & Deploy
-Run `build.bat` (or in PowerShell run `.\build.ps1`):
+Use your own local credentials. Do not commit a file containing a real password to a public repository.
+
+### 3. Build and deploy
+
+Use the build method supported by your project. The repository includes `build.bat` and `build.ps1`; check those scripts and `pom.xml` for the exact build and deployment steps. If using the PowerShell script, run it from the project directory:
+
 ```powershell
 .\build.ps1
 ```
-This automatically:
-- Compiles all 22 Java source files using `javac`.
-- Copies `db.properties` into `WEB-INF/classes`.
-- Bundles the `.war` archive (`target/placement.war`).
-- Copies `placement.war` directly into your Tomcat `webapps/` folder.
 
-### Step 4: Start Apache Tomcat
-Double-click `start-tomcat.bat` (or execute `catalina.bat run` in Tomcat's `bin` folder).
+### 4. Start Tomcat and open the application
 
-### Step 5: Open in Browser
-Visit:
-```
+Start Tomcat using your configured installation or the provided `start-tomcat.bat` helper. Then open the context path configured for the deployed application. If the WAR is deployed as `placement.war`, the URL is typically:
+
+```text
 http://localhost:8080/placement/
 ```
 
----
+If this URL does not work, check the WAR filename, Tomcat port, deployment logs, and context path.
 
+## Screenshots
+
+Add screenshots of the actual application here when available. Useful examples include the login page, student dashboard, job listings, recruiter pages, and admin dashboard.
+
+## Future Enhancements
+
+Possible future improvements include:
+
+- Use a dedicated password-hashing algorithm such as bcrypt, Argon2id, or PBKDF2.
+- Add email notifications for application status changes.
+- Improve resume upload and management.
+- Add advanced job and internship search filters.
+- Improve placement analytics and reporting.
+- Deploy the application to a secure public hosting environment.
+
+Only list an item as a completed feature once it has been implemented and tested.
+
+## Project Progress Report
+
+The 12-week project report should be maintained as a separate document so the README remains focused on explaining the software. Add a link here after creating and committing a file such as `PROJECT_REPORT.md`.
