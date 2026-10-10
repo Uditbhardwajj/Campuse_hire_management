@@ -186,18 +186,7 @@ The database `campus_hire_db` contains 6 relational tables with foreign keys and
 
 ---
 
-## 🔑 7. Demo Accounts for Project Demonstration & Viva
 
-| Role | Username | Password | Notes |
-|---|---|---|---|
-| **Admin (TPO)** | `admin` | `admin123` | Full administrative control, company approvals, reports |
-| **Student** | `rahul.sharma` | `student123` | CSE student (CGPA: 8.65), pre-seeded applications |
-| **Student** | `priya.verma` | `student123` | CSE student (CGPA: 9.15), placed candidate |
-| **Company** | `tcs_recruiter` | `company123` | Approved recruiter (Tata Consultancy Services) |
-| **Company** | `infosys_recruiter` | `company123` | Approved recruiter (Infosys) |
-| **Company** | `techm_recruiter` | `company123` | Pending recruiter (Tech Mahindra - test Admin approval) |
-
----
 
 ## 🚀 8. How to Run the Project Locally
 
@@ -237,50 +226,3 @@ http://localhost:8080/placement/
 
 ---
 
-## 🌐 9. How to Deploy Online and Get a Public URL
-
-To share your working project with evaluators, professors, or team members online:
-
-### Option A: Free Public Tunnel (Fastest & Easiest for Demos - 2 minutes)
-Keep your local Tomcat server running and expose it via **ngrok** or **localtunnel**:
-1. Download [ngrok](https://ngrok.com/) or run in terminal:
-   ```cmd
-   npx localtunnel --port 8080
-   ```
-2. Localtunnel immediately generates a public HTTPS URL like:
-   `https://campus-hire-portal.loca.lt/placement/`
-3. Anyone with this link can open your live web application directly in their browser!
-
-### Option B: Cloud Hosting (Render / Railway / AWS EC2)
-1. **Database**: Use a free cloud MySQL instance on **Aiven**, **Railway**, or **Clever Cloud**.
-2. **Web Server**: Deploy a standard Docker container running Tomcat 10:
-   ```dockerfile
-   FROM tomcat:10.1-jdk17
-   COPY target/placement.war /usr/local/tomcat/webapps/ROOT.war
-   EXPOSE 8080
-   CMD ["catalina.sh", "run"]
-   ```
-3. Update `db.properties` with the cloud database URL.
-4. Push to GitHub and deploy to Render or Railway to get an address like `https://campushire.onrender.com`.
-
----
-
-## 🎓 10. Frequently Asked Viva Questions & Answers
-
-### Q1: Why did you use Servlets and JSP instead of Spring Boot?
-**Answer**: "Spring Boot abstracts away the fundamental mechanisms of web request handling, inversion of control, and session lifecycle. Building the system using Core Java Servlets, JSP, and JDBC demonstrates a direct understanding of how HTTP requests map to Servlets, how the Servlet lifecycle operates (`init`, `service`, `destroy`), how `HttpSession` cookies work under the hood, and how raw SQL statements are safely executed via JDBC `PreparedStatement`."
-
-### Q2: What is MVC architecture and how is it implemented in your project?
-**Answer**:
-- **Model**: Java POJO classes (`User`, `Student`, `Job`, etc.) representing real-world business entities.
-- **View**: JSP pages located inside `WEB-INF/views/` that render the user interface using HTML, CSS, and dynamic Java expressions.
-- **Controller**: Java Servlets (`LoginServlet`, `StudentServlet`, `CompanyServlet`, `AdminServlet`) that intercept HTTP requests, validate input, call the appropriate DAO methods, attach results to the request scope, and forward the request to the view.
-
-### Q3: Why are JSPs placed in `WEB-INF/views/`?
-**Answer**: "Files inside the `WEB-INF` folder are protected by the Servlet specification from direct URL access. A client cannot type `/placement/WEB-INF/views/student/dashboard.jsp` to bypass business logic and access control. Only the Controller Servlets can forward requests to these pages using `request.getRequestDispatcher().forward(request, response)`."
-
-### Q4: How do you prevent SQL Injection?
-**Answer**: "By exclusively using `PreparedStatement` with parameterized placeholders (`?`) instead of string concatenation. The JDBC driver pre-compiles the SQL command and treats user input strictly as literal parameter data, ensuring malicious SQL input can never alter query execution structure."
-
-### Q5: How does session management work without Spring Security?
-**Answer**: "When a user logs in successfully, `req.getSession(true)` creates an `HttpSession` managed by Apache Tomcat. Tomcat assigns a unique session identifier stored in the client's browser as a `JSESSIONID` cookie. The `AuthFilter` intercepts subsequent requests, retrieves the session using `req.getSession(false)`, inspects the logged-in `User` and `role` attributes, and either permits access or redirects unauthorized users to `login.jsp`."
