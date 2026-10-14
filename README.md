@@ -198,9 +198,6 @@ http://localhost:8080/placement/
 
 If this URL does not work, check the WAR filename, Tomcat port, deployment logs, and context path.
 
-## Screenshots
-
-Add screenshots of the actual application here when available. Useful examples include the login page, student dashboard, job listings, recruiter pages, and admin dashboard.
 
 ## Future Enhancements
 
@@ -215,6 +212,4 @@ Possible future improvements include:
 
 Only list an item as a completed feature once it has been implemented and tested.
 
-## Project Progress Report
 
-The 12-week project report should be maintained as a separate document so the README remains focused on explaining the software. Add a link here after creating and committing a file such as `PROJECT_REPORT.md`.
