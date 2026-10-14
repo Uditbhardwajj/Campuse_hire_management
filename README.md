@@ -4,10 +4,11 @@
 
 | Document | Description | Link |
 |---|---|---|
-| 📄 SRS Document | Software Requirements Specification | [View SRS](./SRS.pdf) |
+| 📄 SRS Document | Software Requirements Specification | [View SRS](./CampusHire_SRS.pdf) |
 | 📊 Project Presentation | Project PPT | [View PPT](./CampusHire_Presentation.pptx) |
 | 📝 Research Paper | IEEE Research Paper | [View Paper](./CampusHire_IEEE_Paper.pdf) |
 | 📘 Project Report | Complete project report | [View Report](./CampusHire%20Report.pdf) |
+
 
 
 
