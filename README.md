@@ -26,6 +26,11 @@
 
 
 
+## 🚀 Live Demo
+
+🔗 **[Open CampusHire Application](https://campushire-fdo8.onrender.com/)**
+
+
 
 # CampusHire - College Placement and Internship Management System
 
