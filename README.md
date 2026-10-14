@@ -12,6 +12,19 @@
 
 
 
+## 👥 Team Members and Responsibilities
+
+| Team Member | GitHub Profile | Responsibility | Contribution Notes |
+|---|---|---|---|
+| Rahul Tailor | [GitHub]([https://github.com/](https://github.com/rahultailorofficial01)) | Frontend Development: HTML, CSS, JavaScript | UI development and page design |
+| Yash Kumar | [GitHub]([https://github.com/](https://github.com/yashkumar-25)) | Project Documentation | SRS, research paper, PPT, and project report |
+| Vaibhav Charan | [GitHub](https://github.com/vaibhavcharan5555-collab)) | Java Backend Development: Servlet/JSP | Backend logic and request handling |
+| Virendra Singh Chundawat | [GitHub]([https://github.com/](https://github.com/virendrasinghchundawat984)) | Database Design and Connectivity: MySQL/JDBC | Database schema and connectivity |
+| Udit Bhardwaj | [@Uditbhardwajj](https://github.com/Uditbhardwajj) | Testing, GitHub Management, and Integration | Testing, version control, repository management, and code integration |
+
+
+
+
 # CampusHire - College Placement and Internship Management System
 
 CampusHire is a Java-based web application designed to bring students, recruiters, and a college's Training and Placement Office (TPO) together in one portal. It supports job and internship postings, student applications, and role-based access for students, companies, and administrators.
