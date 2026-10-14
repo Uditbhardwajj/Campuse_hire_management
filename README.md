@@ -12,13 +12,15 @@
 
 
 
+## 👥 Team Members and Responsibilities
+
 
 | Team Member | GitHub Profile | Responsibility | Contribution Notes |
 |---|---|---|---|
 | Rahul Tailor | [GitHub](https://github.com/rahultailorofficial01) | Frontend Development: HTML, CSS, JavaScript | UI development and page design |
 | Yash Kumar | [GitHub](https://github.com/yashkumar-25) | Project Documentation | SRS, research paper, PPT, and project report |
-| Vaibhav Charan | [GitHub](https://github.com/vaibhacharans5555-collab) | Java Backend Development: Servlet/JSP | Backend logic and request handling |
-| Virendra Singh Chundawat | [GitHub](https://github.com/virendrasnghchundawat984) | Database Design and Connectivity: MySQL/JDBC | Database schema and connectivity |
+| Vaibhav Charan | [GitHub](https://github.com/vaibhavcharan5555-collab) | Java Backend Development: Servlet/JSP | Backend logic and request handling |
+| Virendra Singh Chundawat | [GitHub](https://github.com/virendrasinghchundawat984) | Database Design and Connectivity: MySQL/JDBC | Database schema and connectivity |
 | Udit Bhardwaj | [Github](https://github.com/Uditbhardwajj) | Testing, GitHub Management, and Integration | Testing, version control, repository management, and code integration |
 
 
