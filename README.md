@@ -33,6 +33,7 @@
 
 
 # CampusHire - College Placement and Internship Management System
+Under the Guidance of Er. Ram Babu Buri
 
 CampusHire is a Java-based web application designed to bring students, recruiters, and a college's Training and Placement Office (TPO) together in one portal. It supports job and internship postings, student applications, and role-based access for students, companies, and administrators.
 
